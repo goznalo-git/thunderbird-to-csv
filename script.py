@@ -2,6 +2,11 @@
 
 import csv, sys
 
+if sys.argv[1] == "--help":
+    print('\033[1mDescripción:\033[0m\n Este script clasifica los mensajes de un archivo ("prueba1") a una columna en formato .csv (return) para su posterior análisis.\n')
+    print('\033[1mEjemplo de uso:\033[0m\n\t python script.py prueba1 return')
+    exit()
+
 okkeys = ["No se han seleccionado paquetes para ser actualizados", "No packages marked for update", "¡Listo!", "Complete!"]
 
 #modificar ./servernames.csv con el archivo pertinente
@@ -40,3 +45,5 @@ with open(f'{sys.argv[2]}.csv', 'w', newline='') as f:
     writer = csv.writer(f)
     for val in okxlist:
         writer.writerow([val])
+
+print("Hecho!")
