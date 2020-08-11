@@ -12,6 +12,11 @@ Los correos diarios de `yum update` han de ser clasificados en un Excel, en base
     
 Esta tarea acaba siendo bastante repetitiva y monótona, aun con trucos como ordenar los emails. ¿Y a quién se le dan bien las tareas monótonas y repetitivas? A los ordenadores. Por tanto vamos a implementar un programilla para automatizar este proceso.
 
+## Uso 
+Se recomienda el uso del ejecutable script.py, mediante línea de comandos. El script requiere un argumento posicional, siendo este el nombre del archivo que contiene los mensajes de Thunderbird (para más detalles ver el script). Ejemplo:
+
+`python script.py prueba1`
+
 ## Contenido
 El repositorio es muy simple: contiene el presente README, el archivo .csv resultante, un Jupyter Notebook con el programa detallado paso a paso, y finalmente un ejecutable de Python para realizar la tarea de forma automática a través de la shell.
 

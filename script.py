@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-import csv
+import csv, sys
 
-okkeys = ["No se han seleccionado paquetes para ser actualizados","No packages marked for update", "¡Listo!", "Complete!"]
+okkeys = ["No se han seleccionado paquetes para ser actualizados", "No packages marked for update", "¡Listo!", "Complete!"]
 
 #modificar ./servernames.csv con el archivo pertinente
 with open("/home/goznalo/CCC/servernames.csv", encoding='utf-8-sig') as file1:
@@ -15,10 +15,10 @@ okxlist = ['x'] * numservers
 with open("/home/goznalo/CCC/nomessages.csv", encoding='utf-8-sig') as file2:
     nomsglist =  [False if not server.replace('\n', '') else True for server in file2]
 
-okxlist =  [a * b for a, b in zip(okxlist,nomsglist)]
+okxlist =  [a * b for a, b in zip(okxlist, nomsglist)]
 
 directorio = "/home/goznalo/.thunderbird/ceesvdh2.default/Mail/fluor.ccc.uam-1.es/"
-archivo = "prueba1" #modificar con el archivo pertinente
+archivo = sys.argv[1] #modificar con el archivo pertinente
 
 path = directorio + archivo
 
