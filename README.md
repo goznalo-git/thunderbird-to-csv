@@ -12,5 +12,8 @@ Los correos diarios de `yum update` han de ser clasificados en un Excel, en base
     
 Esta tarea acaba siendo bastante repetitiva y monótona, aun con trucos como ordenar los emails. ¿Y a quién se le dan bien las tareas monótonas y repetitivas? A los ordenadores. Por tanto vamos a implementar un programilla para automatizar este proceso.
 
-## Archivos necesarios
+## Contenido
+El repositorio es muy simple: contiene el presente README, el archivo .csv resultante, un Jupyter Notebook con el programa detallado paso a paso, y finalmente un ejecutable de Python para realizar la tarea de forma automática a través de la shell.
+
+### Disclaimer: archivos necesarios
 Por temas de privacidad del CCC-UAM, no es posible mostrar la información de los servidores (por ejemplo sus nombres), por tanto tanto los mensajes como la lista con servidores serán archivos ajenos al repositorio, llamados por el programa solo localmente. En cualquier caso, no es difícil adaptar el programa para usarlo en el ordenador de cada uno, con sus respectivos mensajes y servidores.
