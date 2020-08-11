@@ -36,7 +36,7 @@ for mess in messlist:
             okxlist[num] = "ok"
             break
 
-with open('returns.csv', 'w', newline='') as f:
+with open(f'{sys.argv[2]}.csv', 'w', newline='') as f:
     writer = csv.writer(f)
     for val in okxlist:
         writer.writerow([val])
