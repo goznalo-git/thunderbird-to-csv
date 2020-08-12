@@ -17,6 +17,8 @@ Se recomienda el uso del ejecutable script.py, mediante línea de comandos. El s
 
 `python script.py prueba1 return`
 
+La ejecución acaba mostrando por pantalla aquellos servidores cuyos mensajes son posibles errores.
+
 ## Contenido
 El repositorio es muy simple: contiene el presente README, el archivo .csv resultante, un Jupyter Notebook con el programa detallado paso a paso, y finalmente un ejecutable de Python para realizar la tarea de forma automática a través de la shell.
 
