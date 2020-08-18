@@ -15,8 +15,6 @@ okkeys = ["No se han seleccionando paquetes para ser actualizados","No packages 
 #modificar ./servernames.csv con el archivo pertinente
 with open("/home/goznalo/CCC/servernames.csv", encoding='utf-8-sig') as file1: #modificar con el archivo pertinente
     listservers =  [server.replace('\n', '').lower() for server in file1]
-listservers.append("ciempozuelos.ccc.uam.es") #ciempozuelos no está incluido
-#listservers.sort()
 
 numservers = len(listservers)
 okxlist = ['x'] * numservers
@@ -24,7 +22,7 @@ okxlist = ['x'] * numservers
 #modificar ./nomessages.csv con el archivo pertinente
 with open("/home/goznalo/CCC/nomessages.csv", encoding='utf-8-sig') as file2: #modificar con el archivo pertinente
     nomsglist =  [False if not server.replace('\n', '') else True for server in file2]
-nomsglist.extend([False,False]) #el valor de zeus, inexistente ya que no manda mensajes, y ciempozuelos (no incluido)
+nomsglist.append(False) #el valor de zeus, vacío ya que no manda mensajes
 
 okxlist =  [a * b for a, b in zip(okxlist,nomsglist)]
 
@@ -60,7 +58,7 @@ with open(f'{sys.argv[2]}.csv', 'w', newline='') as f:
         writer.writerow([val])
 
 ####Sacar por pantalla los correos a revisar
-errlist = list(dict.fromkeys(errlist))
+errlist = list(sorted(dict.fromkeys(errlist)))
 print("\033[1mCorreos a revisar:\033[0m\n")
 for err in errlist:
     print("\t" + str(err))
