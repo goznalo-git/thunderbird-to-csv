@@ -12,7 +12,7 @@ if sys.argv[1] == "--help":
 okkeys = ["No se han seleccionando paquetes para ser actualizados","No packages marked for update", "¡Listo!", "Complete!"]
 #el primer mensaje de error tiene una errata, sí.
 
-num_to_month = {"01": "Enero", "02": "Febrero", "03": "Marzo", "04": "Abril", "05": "Mayo", "06": "Junio", "07": "Julio", "08": "Agosto", "09": "Septiembre", "10": "Octubre", "11": "Noviembre", "12": "Diciembre" }
+num_to_month = {"01": "Enero", "02": "Febrero", "03": "Marzo", "04": "Abril", "05": "Mayo", "06": "Junio", "07": "Julio", "08": "Agosto", "09": "Septiembre", "10": "Octubre", "11": "Noviembre", "12": "Diciembre"}
 
 
 #modificar ./servernames.csv con el archivo pertinente
@@ -66,6 +66,9 @@ with open(f'return{sys.argv[1] + sys.argv[2]}.csv', 'w', newline='') as f:
         
 ####Sacar por pantalla los correos a revisar
 errlist = list(sorted(dict.fromkeys(errlist)))
-print("\033[1mCorreos a revisar:\033[0m\n")
-for err in errlist:
-    print("\t" + str(err))
+print("\033[1mCorreos a revisar:\033[0m")
+if len(errlist) < 10 or sysargv3 == "--show":
+    for err in errlist:
+        print("\t" + str(err))
+else:
+    print('Demasiados servidores por mostrar (' + str(len(errlist)) + '). Para verlos, repetir el comando con "--show" como tercer argumento')
