@@ -2,10 +2,12 @@
 
 ####Preámbulo
 import csv, sys
+import pyexcel as pe
 
 if sys.argv[1] == "--help":
     print('\033[1mDescripción:\033[0m\n Este script clasifica los mensajes de un archivo (ejemplo del día 18 de agosto: "path-to-file/1808") a una columna en formato .csv (return1808) para su posterior análisis.\n')
-    print('\033[1mEjemplo de uso:\033[0m\n\t python script.py 18 08\n')
+    print('\033[1mEjemplo de uso:\033[0m\n\t python script.py 18 08 [--show]\n')
+    print('\033[1mArgumento opcional #3: --show\033[0m\t Esta opción fuerza al programa a mostrar siempre todos los correos "sospechosos", a revisar. De no estar presente, si hubiera más de 10 este output se suprimiría.\n')
     exit()
 
 ####Definiciones iniciales
@@ -14,19 +16,32 @@ okkeys = ["No se han seleccionando paquetes para ser actualizados","No packages 
 
 num_to_month = {"01": "Enero", "02": "Febrero", "03": "Marzo", "04": "Abril", "05": "Mayo", "06": "Junio", "07": "Julio", "08": "Agosto", "09": "Septiembre", "10": "Octubre", "11": "Noviembre", "12": "Diciembre"}
 
+month = num_to_month[sys.argv[2]]
 
-#modificar ./servernames.csv con el archivo pertinente
-with open("/home/goznalo/CCC/servernames.csv", encoding='utf-8-sig') as file1: #modificar con el archivo pertinente
-    listservers =  [server.replace('\n', '').lower() for server in file1]
+todaycolumn = int(sys.argv[1])
+
+xlsx_file = "/home/goznalo/CCC/TareasFluor/Updates-2020.ods"
+sheet = pe.get_book(file_name=xlsx_file)[month]
+arrayeet = sheet.get_array()
+
+listservers = []
+for i in range(1,len(arrayeet)-3): #quitar las filas extra añadidas.
+    listservers.append(arrayeet[i][0].lower())
 
 numservers = len(listservers)
 okxlist = ['x'] * numservers
 
 
-#modificar ./nomessages.csv con el archivo pertinente
-with open("/home/goznalo/CCC/nomessages.csv", encoding='utf-8-sig') as file2: #modificar con el archivo pertinente
-    nomsglist =  [False if not server.replace('\n', '') else True for server in file2]
-nomsglist.append(False) #el valor de zeus, vacío ya que no manda mensajes
+#asegurarse de haber escogido bien los servidores:
+if not numservers == 677 or not listservers[0] == "abedul.ccc.uam.es" or not listservers[-1] == "zeus.ccc.uam.es":
+    raise ValueError('Algo ha salido mal... la lista de servidores no es correcta.')
+    
+nomsglist = []
+for i in range(1,len(arrayeet)-3):
+    nomsglist.append(False if not arrayeet[i][todaycolumn - 1] else True) #coger los espacios en blanco del día anterior
+
+numservers = len(listservers)
+okxlist = ['x'] * numservers
 
 okxlist =  [a * b for a, b in zip(okxlist,nomsglist)]
 
@@ -58,7 +73,7 @@ for mess in messlist:
 
         
 ####Escribir la información de los correos en .csv
-with open(f'return{sys.argv[1] + sys.argv[2]}.csv', 'w', newline='') as f:
+with open(f'returns{sys.argv[1] + sys.argv[2]}.csv', 'w', newline='') as f:
     writer = csv.writer(f)
     for val in okxlist:
         writer.writerow([val])
@@ -66,9 +81,25 @@ with open(f'return{sys.argv[1] + sys.argv[2]}.csv', 'w', newline='') as f:
         
 ####Sacar por pantalla los correos a revisar
 errlist = list(sorted(dict.fromkeys(errlist)))
+
+def outputservers(yn):
+    if yn:
+        for err in errlist:
+            print("\t" + str(err))
+    else:
+        print('Demasiados servidores por mostrar (' + str(len(errlist)) + '). Para verlos, repetir el comando con "--show" como tercer argumento')
+        
 print("\033[1mCorreos a revisar:\033[0m")
-if len(errlist) < 10 or sysargv3 == "--show":
-    for err in errlist:
-        print("\t" + str(err))
-else:
-    print('Demasiados servidores por mostrar (' + str(len(errlist)) + '). Para verlos, repetir el comando con "--show" como tercer argumento')
+try:
+    sys.argv[3]
+    if sys.argv[3] == "--show" or len(errlist) < 10:
+        outputservers(True)
+    else:
+        outputservers(False)
+except:
+    if len(errlist) < 10:
+        outputservers(True)
+    else:
+        outputservers(False)
+    
+
