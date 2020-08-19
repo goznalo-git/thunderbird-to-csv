@@ -5,7 +5,7 @@ import csv, sys
 import pyexcel as pe
 
 if sys.argv[1] == "--help":
-    print('\033[1mDescripción:\033[0m\n Este script clasifica los mensajes de un archivo (ejemplo del día 18 de agosto: "path-to-file/1808") a una columna en formato .csv (return1808) para su posterior análisis.\n')
+    print('\033[1mDescripción:\033[0m\n Este script clasifica los mensajes de un archivo (ejemplo del día 18 de agosto: "path-to-file/1808") a una columna en formato .csv (returns1808) para su posterior análisis.\n')
     print('\033[1mEjemplo de uso:\033[0m\n\t python script.py 18 08 [--show]\n')
     print('\033[1mArgumento opcional #3: --show\033[0m\t Esta opción fuerza al programa a mostrar siempre todos los correos "sospechosos", a revisar. De no estar presente, si hubiera más de 10 este output se suprimiría.\n')
     exit()
