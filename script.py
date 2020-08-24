@@ -38,7 +38,7 @@ if not numservers == 677 or not listservers[0] == "abedul.ccc.uam.es" or not lis
     
 nomsglist = []
 for i in range(1,len(arrayeet)-3):
-    nomsglist.append(False if not arrayeet[i][todaycolumn - 1] else True) #coger los espacios en blanco del día anterior
+    nomsglist.append(False if not arrayeet[i][1] else True) #coger los espacios en blanco del día anterior
 
 numservers = len(listservers)
 okxlist = ['x'] * numservers
