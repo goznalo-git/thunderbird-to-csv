@@ -58,6 +58,7 @@ messlist = messages.split("From -")[1:]
 
 
 errlist = []
+falseerrcheck = []
 for mess in messlist:
     sender = mess.split("<root@")[1].split(">Received:")[0]
     num = listservers.index(sender)
@@ -65,12 +66,14 @@ for mess in messlist:
         err = 0
         if oks in mess:
             okxlist[num] = "ok"
+            falseerrcheck.append(sender)
             break
         else:
             err = 1
     if err == 1:
         errlist.append(sender)
 
+realerrors = list(sorted(set(errlist)-set(falseerrcheck)))
         
 ####Escribir la información de los correos en .csv
 with open(f'returns{sys.argv[1] + sys.argv[2]}.csv', 'w', newline='') as f:
@@ -80,24 +83,23 @@ with open(f'returns{sys.argv[1] + sys.argv[2]}.csv', 'w', newline='') as f:
 
         
 ####Sacar por pantalla los correos a revisar
-errlist = list(sorted(dict.fromkeys(errlist)))
 
 def outputservers(yn):
     if yn:
-        for err in errlist:
+        for err in realerrors:
             print("\t" + str(err))
     else:
-        print('Demasiados servidores por mostrar (' + str(len(errlist)) + '). Para verlos, repetir el comando con "--show" como tercer argumento')
+        print('Demasiados servidores por mostrar (' + str(len(realerrors)) + '). Para verlos, repetir el comando con "--show" como tercer argumento')
         
 print("\033[1mCorreos a revisar:\033[0m")
 try:
     sys.argv[3]
-    if sys.argv[3] == "--show" or len(errlist) < 10:
+    if sys.argv[3] == "--show" or len(realerrors) < 10:
         outputservers(True)
     else:
         outputservers(False)
 except:
-    if len(errlist) < 10:
+    if len(realerrors) < 10:
         outputservers(True)
     else:
         outputservers(False)
