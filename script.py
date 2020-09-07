@@ -74,6 +74,8 @@ for mess in messlist:
         errlist.append(sender)
 
 realerrors = list(sorted(set(errlist)-set(falseerrcheck)))
+
+errlist = sorted(errlist)
         
 ####Escribir la información de los correos en .csv
 with open(f'returns{sys.argv[1] + sys.argv[2]}.csv', 'w', newline='') as f:
@@ -86,20 +88,23 @@ with open(f'returns{sys.argv[1] + sys.argv[2]}.csv', 'w', newline='') as f:
 
 def outputservers(yn):
     if yn:
-        for err in realerrors:
-            print("\t" + str(err))
+        for err in errlist:
+            if err in realerrors:
+                print("\t" + str(err))
+            else:
+                print("\t" + str(err) + "\t  (falsa alarma, probablemente)")
     else:
-        print('Demasiados servidores por mostrar (' + str(len(realerrors)) + '). Para verlos, repetir el comando con "--show" como tercer argumento')
+        print('Demasiados servidores por mostrar (' + str(len(errlist)) + '). Para verlos, repetir el comando con "--show" como tercer argumento')
         
 print("\033[1mCorreos a revisar:\033[0m")
 try:
     sys.argv[3]
-    if sys.argv[3] == "--show" or len(realerrors) < 10:
+    if sys.argv[3] == "--show" or len(errlist) < 10:
         outputservers(True)
     else:
         outputservers(False)
 except:
-    if len(realerrors) < 10:
+    if len(errlist) < 10:
         outputservers(True)
     else:
         outputservers(False)
