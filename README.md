@@ -10,17 +10,17 @@ Los correos diarios de `yum update` han de ser clasificados en una hoja de cálc
     1. El correo contiene un mensaje de error a la hora del update -> escribir "x"
     2. El correo contiene un "Listo!", "No packages marked for an update", o "No ha seleccionado paquetes para la actualización" -> escribir "ok"
     
-Esta tarea acaba siendo bastante repetitiva y monótona, aun con trucos como ordenar los emails. ¿Y a quién se le dan bien las tareas monótonas y repetitivas? A los ordenadores. Por tanto vamos a implementar un programilla para automatizar este proceso.
+Esta tarea acaba siendo bastante repetitiva y monótona, aun con trucos como ordenar los semails. ¿Y a quién se le dan bien las tareas monótonas y repetitivas? A los ordenadores. Por tanto vamos a implementar un programilla para automatizar este proceso. 
 
 ## Requisitos previos
 
 ### Software
-* Python 3.x, junto con los módulos csv y pyexcel.
+* Python 3.x. Los requisitos respecto a módulos están especificados en el archivo `requirements.txt`, y la carpeta del virtual enviroment correspondiente en la carpeta `thunderyum`.
 * Thunderbird. Evidentemente.
 * Procesador de hojas de cálculo: La hoja de cálculo usada como input está en formato .ods, por tanto es preferible tener instalado LibreOffice/OpenOffice Calc, o Microsoft Excel con la extensión apropiada. Otras alternativas (como Softmaker Planmaker) pueden no soportar este formato.
 
 ### Estructura de los directorios
-* Mensajes de Thunderbird: Estos han de ser localizados inicialmente en el ordenador de cada uno. En mi caso están rebuscando en el directorio `.thunderbird`, encontrados rebuscando un poco. 
+* Mensajes de Thunderbird: Estos han de ser localizados inicialmente en el ordenador de cada uno. En mi caso están rebuscando en el directorio `~/.thunderbird`, encontrados rebuscando un poco dentro de esa carpeta. 
 * Hoja de cálculo de origen: ver disclaimer al final.
 
 
